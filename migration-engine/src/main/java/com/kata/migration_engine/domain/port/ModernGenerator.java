@@ -5,7 +5,7 @@ import java.util.List;
 import com.kata.migration_engine.domain.ast.CodeNode;
 import com.kata.migration_engine.domain.model.Language;
 
-public interface ModernGeneratorJava {
+public interface ModernGenerator {
 
     boolean supports(Language language);
 
