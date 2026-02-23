@@ -84,6 +84,7 @@ Abre una nueva terminal:
 cd frontend-ui
 npm install
 ng serve
+```
 
 El frontend estará disponible en http://localhost:4200.
 
