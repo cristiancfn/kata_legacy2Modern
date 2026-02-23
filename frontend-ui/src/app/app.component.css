@@ -18,7 +18,21 @@ select { padding: 5px; border-radius: 4px; border: 1px solid #ccc; }
 .action-btn:disabled { background-color: #cccccc; cursor: not-allowed; }
 .error-msg { color: #dc3545; font-weight: bold; }
 
-.report-section { margin-top: 10px; }
+.report-section { 
+  margin-top: 20px; 
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f4f4f4;
+  border-top: none;
+}
 table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
 th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
 th { background-color: #f4f4f4; }
