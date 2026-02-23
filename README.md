@@ -26,7 +26,7 @@ Para evitar un acoplamiento rígido y cumplir con el Principio Abierto/Cerrado (
 
 \* \*\*`LegacyParser` (Puerto de Entrada):\*\* Define el contrato para leer código fuente. Actualmente implementado por `CobolParser`. Si en el futuro se requiere soportar Delphi, basta con crear un `DelphiParser` sin modificar el motor principal.
 
-\* \*\*`ModernGenerator` (Puerto de Salida):\*\* Define el contrato para emitir código moderno. Actualmente implementado por `JavaGenerator`. Permite la extensión natural hacia `NodeJsGenerator` o `PythonGenerator`.
+\* \*\*`ModernGenerator` (Puerto de Salida):\*\* Define el contrato para emitir código moderno. Actualmente implementado por `JavaGenerator` y por `NodeJsGenerator`. Permite la extensión natural hacia `CGenerator` o `PythonGenerator`, entre otros según se necesite.
 
 
 
