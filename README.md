@@ -19,15 +19,15 @@ El motor **no** realiza traducciones literales (texto a texto). El `LegacyParser
 
 ---
 
-\## 📊 Estándares de Calidad (ISO/IEC 25010)
+## 📊 Estándares de Calidad (ISO/IEC 25010)
 
 
 
 El diseño arquitectónico responde directamente a los atributos de calidad del estándar ISO 25010:
 
-\* \*\*Mantenibilidad (Modularidad):\*\* La separación estricta entre Frontend (CSR en Angular) y Backend (API REST en Spring Boot) permite evolucionar y escalar cada componente de forma independiente.
+* **Mantenibilidad (Modularidad):** La separación estricta entre Frontend (CSR en Angular) y Backend (API REST en Spring Boot) permite evolucionar y escalar cada componente de forma independiente.
 
-\* \*\*Fiabilidad (Madurez y Tolerancia a fallos):\*\* El motor implementa un manejador global de excepciones (`GlobalExceptionHandler`) que captura errores de validación o lenguajes no soportados, devolviendo respuestas HTTP semánticamente correctas sin exponer el stack trace al usuario.
+* **Fiabilidad (Madurez y Tolerancia a fallos):** El motor implementa un manejador global de excepciones (`GlobalExceptionHandler`) que captura errores de validación o lenguajes no soportados, devolviendo respuestas HTTP semánticamente correctas sin exponer el stack trace al usuario.
 
 
 
@@ -40,8 +40,8 @@ Atendiendo a las políticas de seguridad de la organización y a lecciones apren
 1. **Prevención de Fuga de Credenciales (Secrets Leakage):**
    * El proyecto mantiene una política de *Zero Secrets*. Se implementó un `.gitignore` estricto y no existen credenciales ni IPs quemadas (hardcoded) en el código fuente. El enrutamiento se maneja dinámicamente mediante variables de entorno.
 2. **Prevención de Ataques DoS a nivel de Aplicación:**
-   \* \*\*Riesgo:\*\* Un actor malintencionado podría enviar un payload gigantesco de código fuente para saturar la memoria del analizador léxico.
-   \* \*\*Mitigación:\*\* Se implementó validación de entrada estricta mediante `jakarta.validation.constraints` para truncar payloads masivos antes de que alcancen la capa de dominio.
+   * **Riesgo:** Un actor malintencionado podría enviar un payload gigantesco de código fuente para saturar la memoria del analizador léxico.
+   * **Mitigación:** Se implementó validación de entrada estricta mediante `jakarta.validation.constraints` para truncar payloads masivos antes de que alcancen la capa de dominio.
 3. **Prevención de Inyección de Código (Code Injection):**
    * El AST actúa como una capa de sanitización; cualquier instrucción no reconocida por las expresiones regulares seguras es catalogada y reportada como un *Warning*, sin ser ejecutada jamás por el servidor.
 
@@ -86,6 +86,6 @@ npm install
 ng serve
 ```
 
-El frontend estará disponible en http://localhost:4200.
+El frontend estará disponible en `http://localhost:4200`
 
-Nota Arquitectónica: Al ejecutar ng serve, Angular utiliza environment.development.ts y el archivo proxy.conf.json para enrutar internamente las peticiones hacia el puerto 8080 local, replicando el comportamiento del proxy de Vercel en la nube.
+**Nota Arquitectónica:** Al ejecutar ng serve, Angular utiliza environment.development.ts y el archivo proxy.conf.json para enrutar internamente las peticiones hacia el puerto 8080 local, replicando el comportamiento del proxy de Vercel en la nube.
