@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./migration-engine
+      dockerfile: Dockerfile
+    container_name: legacy-engine-api
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - legacy-network
+
+  frontend:
+    build:
+      context: ./frontend-ui
+      dockerfile: Dockerfile
+    container_name: legacy-engine-ui
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - legacy-network
+
+networks:
+  legacy-network:
+    driver: bridge
