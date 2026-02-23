@@ -32,11 +32,11 @@ public class NodeJsGenerator implements ModernGenerator {
                 builder.append(indent).append("console.log(\"").append(printStmt.content()).append("\");\n");
             } 
             else if (node instanceof VariableDeclarationNode varNode) {
-                String formattedName = varNode.variableName().toLowerCase().replace("-", "_");
+                String formattedName = varNode.variableName().replace("-", "_");
                 builder.append(indent).append("let ").append(formattedName).append(";\n");
             } 
             else if (node instanceof AssignmentStatement assignStmt) {
-                String formattedVarName = assignStmt.variableName().toLowerCase().replace("-", "_");
+                String formattedVarName = assignStmt.variableName().replace("-", "_");
                 
                 builder.append(indent).append(formattedVarName).append(" = ").append(assignStmt.value()).append(";\n");
             } 
