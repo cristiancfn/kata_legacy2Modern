@@ -32,7 +32,7 @@ public class JavaGenerator implements ModernGenerator {
                 builder.append(indent).append("System.out.println(\"").append(printStmt.content()).append("\");\n");
             }
             else if (node instanceof AssignmentStatement assignStmt) {
-                String formattedVarName = assignStmt.variableName().toLowerCase().replace("-", "_");
+                String formattedVarName = assignStmt.variableName().replace("-", "_");
                 builder.append(indent).append(formattedVarName).append(" = ").append(assignStmt.value()).append(";\n");
             }
             else if (node instanceof IfStatement ifStmt) {
@@ -50,7 +50,7 @@ public class JavaGenerator implements ModernGenerator {
             else if (node instanceof VariableDeclarationNode varNode) {
                 String javaType = varNode.dataType().equals("STRING") ? "String" : "int";
 
-                String formattedName = varNode.variableName().toLowerCase().replace("-", "_");
+                String formattedName = varNode.variableName().replace("-", "_");
 
                 builder.append(indent).append(javaType).append(" ").append(formattedName).append(";\n");
             }
