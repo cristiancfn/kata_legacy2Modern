@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://legacy2modern-api.onrender.com/api/:path*"
+    }
+  ]
+}

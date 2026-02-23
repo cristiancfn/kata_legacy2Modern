@@ -27,7 +27,7 @@ export class MigrationService {
 
   private http = inject(HttpClient);
 
-  private readonly API_URL = environment.apiUrl;
+  private readonly API_URL = '/api/v1/migrations';
 
   migrateCode(request: MigrationRequest): Observable<MigrationResult> {
     return this.http.post<MigrationResult>(this.API_URL, request);
