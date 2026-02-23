@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 export interface MigrationRequest {
   sourceCode: string;
@@ -26,7 +27,7 @@ export class MigrationService {
 
   private http = inject(HttpClient);
 
-  private readonly API_URL = '/api/v1/migrations';
+  private readonly API_URL = environment.apiUrl;
 
   migrateCode(request: MigrationRequest): Observable<MigrationResult> {
     return this.http.post<MigrationResult>(this.API_URL, request);
