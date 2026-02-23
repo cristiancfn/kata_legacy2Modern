@@ -76,8 +76,9 @@ Puedes acceder a la plataforma funcional directamente desde cualquier red corpor
 cd migration-engine
 mvn clean install
 mvn spring-boot:run
+```
 
-**1. Levantar el Frontend (Angular):**
+**2. Levantar el Frontend (Angular):**
 Abre una nueva terminal:
 ```bash
 cd frontend-ui
