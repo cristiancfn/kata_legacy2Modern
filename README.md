@@ -79,7 +79,6 @@ mvn spring-boot:run
 ```
 
 **2. Levantar el Frontend (Angular):**
-Abre una nueva terminal:
 ```bash
 cd frontend-ui
 npm install
