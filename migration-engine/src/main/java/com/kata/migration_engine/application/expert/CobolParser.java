@@ -89,7 +89,7 @@ public class CobolParser implements LegacyParser{
 
             //REGLA 6: Detección de código no soportado (Warning)
             if (node == null && currentIf == null && !line.matches("\\d+")){
-                reports.add(new MigrationRuleReport("Warning-01", "Instrucción no reconocieda o no soportada en la línea " + (i+1) + ": " + line, RuleType.WARNING));
+                reports.add(new MigrationRuleReport("Warning-01", "Instrucción no reconocida o no soportada en la línea " + (i+1) + ": " + line, RuleType.WARNING));
             }
 
             if (node != null) {
