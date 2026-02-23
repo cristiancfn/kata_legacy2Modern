@@ -33,7 +33,7 @@ El diseño arquitectónico responde directamente a los atributos de calidad del 
 
 ---
 
-## 🔒 Seguridad y Mitigación de Riesgos (Obligatorio)
+## 🔒 Seguridad y Mitigación de Riesgos
 
 Atendiendo a las políticas de seguridad de la organización y a lecciones aprendidas de incidentes de la industria, se aplicaron las siguientes directrices:
 
