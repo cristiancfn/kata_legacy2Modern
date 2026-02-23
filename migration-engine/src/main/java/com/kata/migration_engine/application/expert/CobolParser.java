@@ -51,7 +51,10 @@ public class CobolParser implements LegacyParser{
             //REGLA 1: Condicional IF
             Matcher ifMatcher = IF_PATTERN.matcher(line);
             if (ifMatcher.matches()) {
-                currentIf = new IfStatement(ifMatcher.group(1), new ArrayList<>(), new ArrayList<>());
+                String rawCondition = ifMatcher.group(1);
+                String normalizedCondition = normalizeCondition(rawCondition);
+
+                currentIf = new IfStatement(normalizedCondition, new ArrayList<>(), new ArrayList<>());
                 reports.add(new MigrationRuleReport("Cobol-Rule-01", "Conversión de condicional IF", RuleType.APPLIED));
                 continue;
             }
@@ -120,6 +123,33 @@ public class CobolParser implements LegacyParser{
         }
 
         return new ParseResult(ast, reports);
+    }
+
+    private String normalizeCondition(String condition) {
+        String normalized = condition;
+
+        normalized = normalized.replaceAll("(?i)\\bEQUAL TO\\b", "==");
+        normalized = normalized.replaceAll("(?i)\\bGREATER THAN OR EQUAL TO\\b", ">=");
+        normalized = normalized.replaceAll("(?i)\\bLESS THAN OR EQUAL TO\\b", "<=");
+        normalized = normalized.replaceAll("(?i)\\bGREATER THAN\\b", ">");
+        normalized = normalized.replaceAll("(?i)\\bLESS THAN\\b", "<");
+        normalized = normalized.replaceAll("(?i)\\bAND\\b", "&&");
+        normalized = normalized.replaceAll("(?i)\\bOR\\b", "||");
+        normalized = normalized.replaceAll("(?i)\\bNOT\\b", "!");
+
+        normalized = normalized.replace(">=", "@@GE@@")
+            .replace("<=", "@@LE@@")
+            .replace("==", "@@EQ@@")
+            .replace("!=", "@@NE@@");
+        
+        normalized = normalized.replace("=", "==");
+        
+        normalized = normalized.replace("@@GE@@", ">=")
+            .replace("@@LE@@", "<=")
+            .replace("@@EQ@@", "==")
+            .replace("@@NE@@", "!=");
+
+        return normalized.replace("-", "_");
     }
 
 }

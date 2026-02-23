@@ -36,7 +36,7 @@ public class JavaGenerator implements ModernGenerator {
                 builder.append(indent).append(formattedVarName).append(" = ").append(assignStmt.value()).append(";\n");
             }
             else if (node instanceof IfStatement ifStmt) {
-                builder.append(indent).append("if(").append(ifStmt.condition().toLowerCase()).append(") {\n");
+                builder.append(indent).append("if(").append(ifStmt.condition()).append(") {\n");
 
                 generateNodes(ifStmt.trueBlock(), builder, indentLevel + 1);
 
