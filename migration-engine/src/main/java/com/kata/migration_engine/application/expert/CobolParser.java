@@ -41,6 +41,10 @@ public class CobolParser implements LegacyParser{
             if (line.isEmpty())
                 continue;
 
+            if (line.endsWith(".")){
+                line = line.substring(0, line.length() - 1).trim();
+            }
+
             //REGLA 1: Condicional IF
             Matcher ifMatcher = IF_PATTERN.matcher(line);
             if (ifMatcher.matches()) {
