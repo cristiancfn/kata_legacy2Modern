@@ -44,7 +44,7 @@ export class AppComponent {
       },
       error: (err) => {
         console.error(err);
-        this.errorMessage = 'Ocurrió un error al procesar laa migración. Verificar la consola.';
+        this.errorMessage = 'Ocurrió un error al procesar la migración. Verificar la consola.';
         this.isLoading = false;
       }
     });
