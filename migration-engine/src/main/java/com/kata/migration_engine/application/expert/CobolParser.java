@@ -9,6 +9,7 @@ import com.kata.migration_engine.domain.ast.AssignmentStatement;
 import com.kata.migration_engine.domain.ast.CodeNode;
 import com.kata.migration_engine.domain.ast.IfStatement;
 import com.kata.migration_engine.domain.ast.PrintStatement;
+import com.kata.migration_engine.domain.ast.VariableDeclarationNode;
 import com.kata.migration_engine.domain.model.Language;
 import com.kata.migration_engine.domain.model.MigrationRuleReport;
 import com.kata.migration_engine.domain.model.ParseResult;
@@ -20,6 +21,7 @@ public class CobolParser implements LegacyParser{
     private static final Pattern IF_PATTERN = Pattern.compile("IF\\s+(.+)");
     private static final Pattern DISPLAY_PATTERN = Pattern.compile("DISPLAY\\s+\"([^\"]+)\"");
     private static final Pattern MOVE_PATTERN = Pattern.compile("MOVE\\s+(.+)\\s+TO\\s+(.+)");
+    private static final Pattern VAR_DECLARATION_PATTERN = Pattern.compile("(?i)\\d{2}\\s+([A-Za-z0-9\\-]+)\\s+PIC\\s+([A-Za-z0-9\\(\\)]+)");
 
     @Override
     public boolean supports(Language language) {
@@ -37,7 +39,8 @@ public class CobolParser implements LegacyParser{
         boolean inElseBlock = false;
 
         for (int i=0; i<lines.length; i++) {
-            String line = lines[i].trim();
+            String line = lines[i].replaceAll("[\\u00A0\\s]+", " ").trim();
+
             if (line.isEmpty())
                 continue;
 
@@ -87,7 +90,19 @@ public class CobolParser implements LegacyParser{
                 reports.add(new MigrationRuleReport("Cobol-Rule-05", "Conversión de asignación MOVE", RuleType.APPLIED));
             }
 
-            //REGLA 6: Detección de código no soportado (Warning)
+            //REGLA 6: Declaración de variables
+            Matcher varMatcher = VAR_DECLARATION_PATTERN.matcher(line);
+            if (varMatcher.matches() && node == null) {
+                String varName = varMatcher.group(1);
+                String picClause = varMatcher.group(2).toUpperCase();
+
+                String abstractType = (picClause.startsWith("X") || picClause.startsWith("A")) ? "STRING" : "NUMBER";
+
+                node = new VariableDeclarationNode(varName, abstractType);
+                reports.add(new MigrationRuleReport("Cobol-Rule-06", "Conversión de declaración de variable (" + abstractType + ")", RuleType.APPLIED));
+            }
+
+            //REGLA 7: Detección de código no soportado (Warning)
             if (node == null && currentIf == null && !line.matches("\\d+")){
                 reports.add(new MigrationRuleReport("Warning-01", "Instrucción no reconocida o no soportada en la línea " + (i+1) + ": " + line, RuleType.WARNING));
             }

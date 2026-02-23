@@ -6,6 +6,7 @@ import com.kata.migration_engine.domain.ast.AssignmentStatement;
 import com.kata.migration_engine.domain.ast.CodeNode;
 import com.kata.migration_engine.domain.ast.IfStatement;
 import com.kata.migration_engine.domain.ast.PrintStatement;
+import com.kata.migration_engine.domain.ast.VariableDeclarationNode;
 import com.kata.migration_engine.domain.model.Language;
 import com.kata.migration_engine.domain.port.ModernGenerator;
 
@@ -31,7 +32,8 @@ public class JavaGenerator implements ModernGenerator {
                 builder.append(indent).append("System.out.println(\"").append(printStmt.content()).append("\");\n");
             }
             else if (node instanceof AssignmentStatement assignStmt) {
-                builder.append(indent).append(assignStmt.variableName().toLowerCase()).append(" = ").append(assignStmt.value()).append(";\n");
+                String formattedVarName = assignStmt.variableName().toLowerCase().replace("-", "_");
+                builder.append(indent).append(formattedVarName).append(" = ").append(assignStmt.value()).append(";\n");
             }
             else if (node instanceof IfStatement ifStmt) {
                 builder.append(indent).append("if(").append(ifStmt.condition().toLowerCase()).append(") {\n");
@@ -44,6 +46,13 @@ public class JavaGenerator implements ModernGenerator {
                 }
 
                 builder.append(indent).append("}\n");
+            }
+            else if (node instanceof VariableDeclarationNode varNode) {
+                String javaType = varNode.dataType().equals("STRING") ? "String" : "int";
+
+                String formattedName = varNode.variableName().toLowerCase().replace("-", "_");
+
+                builder.append(indent).append(javaType).append(" ").append(formattedName).append(";\n");
             }
         }
     }
