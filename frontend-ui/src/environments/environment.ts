@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://legacy2modern-api.onrender.com'
+  apiUrl: '/api/v1/migrations'
 };
