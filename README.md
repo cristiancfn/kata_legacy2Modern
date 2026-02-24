@@ -88,3 +88,5 @@ ng serve
 El frontend estará disponible en `http://localhost:4200`
 
 **Nota Arquitectónica:** Al ejecutar ng serve, Angular utiliza environment.development.ts y el archivo proxy.conf.json para enrutar internamente las peticiones hacia el puerto 8080 local, replicando el comportamiento del proxy de Vercel en la nube.
+
+* Documentación generada de arquitectura para este reto: * https://drive.google.com/drive/folders/1P94ZeQrY37Fy0WBWpjlOgSqrQvpmqajh?usp=sharing
